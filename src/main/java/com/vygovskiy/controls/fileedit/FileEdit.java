@@ -27,16 +27,6 @@ public class FileEdit extends JPanel {
     private static final long serialVersionUID = 9166564872030028096L;
 
     /**
-     * Initial component preferred width.
-     */
-    private static final int PREFERRED_WIDTH = 200;
-
-    /**
-     * Initial component preferred height.
-     */
-    private static final int PREFERRED_HEIGHT = 20;
-
-    /**
      * Dialog file chooser that showed whin {@link #button} is clicked.
      */
     protected JFileChooser fileChooser;
@@ -63,6 +53,7 @@ public class FileEdit extends JPanel {
         super.setLayout(new BorderLayout());
 
         textField = new JTextField();
+        textField.setColumns(20);
         button = new JButton("Select file...");
 
         fileChooser = new JFileChooser();
@@ -83,8 +74,8 @@ public class FileEdit extends JPanel {
                 }
             }
         });
-
-        setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
+        
+        //setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
     }
 
     /**

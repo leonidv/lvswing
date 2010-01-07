@@ -19,7 +19,7 @@ public class BeanPropertyInfoTest {
 
         BeanPropertiesInfo<Person> data = new BeanPropertiesInfo<Person>(person);
 
-        assertSame(3, data.size());
+        assertSame(6, data.size());
 
         assertTrue(data.contains("lastName"));
         assertTrue(data.contains("firstName"));

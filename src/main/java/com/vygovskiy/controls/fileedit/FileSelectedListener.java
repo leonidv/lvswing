@@ -2,6 +2,6 @@ package com.vygovskiy.controls.fileedit;
 
 import java.util.EventListener;
 
-public abstract class FileSelectedListener implements EventListener {    
+public interface FileSelectedListener extends EventListener {    
     public abstract void fileSelected(FileSelectedEvent e);
 }
