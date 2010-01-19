@@ -43,7 +43,7 @@ public class ChecklistPanelBinding extends JFrame {
     public static void main(String[] args) {
         ChecklistPanelBinding frame = new ChecklistPanelBinding();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        SwingUtils.centerMainFrame(frame);
+        SwingUtils.center(frame);
         frame.setVisible(true);
     }
 

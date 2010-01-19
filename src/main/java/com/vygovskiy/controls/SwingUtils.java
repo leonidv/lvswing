@@ -9,32 +9,31 @@ import javax.swing.JComponent;
 public class SwingUtils {
 
     /**
-     * Осуществляет задание начальных размеров и позиции формы на экране. Форма
-     * размещается в центре окна по ширине и по золотому сечению окна по высоте.
+     * Set new window size and align window by screen center.
      * 
-     * @param window -
-     *          форма, которая будет размещена
-     * @param width -
-     *          устанавливаемая ширина формы
-     * @param height -
-     *          устанавливаемая высота формы
+     * @param window
+     * @param width
+     * @param height
+     * @see #center(Window)
      */
-    public static void centerMainFrame(Window window, int width, int height) {       
+    public static void center(Window window, int width, int height) {
         window.setSize(width, height);
-        centerMainFrame(window);
+        center(window);
     }
-    
+
     /**
-     * Осуществляет задания начальной позиции для переданной формы. При этом
-     * размеры формы не изменяются
+     * Center window by screen center. 
+     * <p>
+     * In fact, it's not center. Golden ratio is used for position calculation.
+     * 
      * @param window
      */
-    public static void centerMainFrame(Window window) {
+    public static void center(Window window) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         window.setLocation((screenSize.width - window.getWidth()) / 2,
                 (screenSize.height - window.getHeight()) / 3);
-        
+
     }
 
     /**
@@ -44,10 +43,10 @@ public class SwingUtils {
      * Метод работает рекурсивно.
      * 
      * @param component
-     *          компонент, которому требуется полностью задать параметр
-     *          блокировки
+     *            компонент, которому требуется полностью задать параметр
+     *            блокировки
      * @param enabled
-     *          блокировать или разблокировать компоненты
+     *            блокировать или разблокировать компоненты
      */
     public static void setEnabledComponents(JComponent component,
             boolean enabled) {

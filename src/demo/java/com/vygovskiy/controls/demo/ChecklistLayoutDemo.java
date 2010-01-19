@@ -33,7 +33,7 @@ public class ChecklistLayoutDemo extends JFrame {
 	 */
 	public static void main(String[] args) {
 		ChecklistLayoutDemo frame = new ChecklistLayoutDemo();
-		SwingUtils.centerMainFrame(frame, 600, 630);
+		SwingUtils.center(frame, 600, 630);
 		frame.setTitle("Checklist panel demo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
