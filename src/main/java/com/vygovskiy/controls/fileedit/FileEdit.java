@@ -1,16 +1,13 @@
 package com.vygovskiy.controls.fileedit;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -29,7 +26,7 @@ public class FileEdit extends JPanel {
     /**
      * Dialog file chooser that showed whin {@link #button} is clicked.
      */
-    protected JFileChooser fileChooser;
+    protected JFileChooser fileChooser = new JFileChooser();
 
     /**
      * Textfield with file name.
@@ -47,6 +44,37 @@ public class FileEdit extends JPanel {
     private ButtonPosition buttonPosition = ButtonPosition.East;
 
     /**
+     * Create object without selected file.
+     * <P>
+     * Start directory is user home.
+     */
+    public FileEdit() {
+        this(new File(System.getProperty("user.home")));
+        init();
+    }
+
+    /**
+     * Create object without selected file.
+     * 
+     * @param startDirectory
+     *            default directory in JFileChooser.
+     */
+    public FileEdit(File startDirectory) {
+        fileChooser = new JFileChooser(startDirectory);
+        init();
+    }
+
+    /**
+     * Create component and set given file name.
+     * 
+     * @param fileName
+     */
+    public FileEdit(String fileName) {
+        this();
+        setFileName(fileName);
+    }
+
+    /**
      * Create and init components on panel.
      */
     private void init() {
@@ -55,8 +83,6 @@ public class FileEdit extends JPanel {
         textField = new JTextField();
         textField.setColumns(20);
         button = new JButton("Select file...");
-
-        fileChooser = new JFileChooser();
 
         add(textField, BorderLayout.CENTER);
         add(button, buttonPosition.getBorderLayoutConstant());
@@ -74,52 +100,27 @@ public class FileEdit extends JPanel {
                 }
             }
         });
-        
-        //setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
-    }
 
-    /**
-     * Create object without file selected.
-     */
-    public FileEdit() {
-        super(new BorderLayout());
-        init();
+        // setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
     }
 
     /**
      * Show fileChooser dialoger.
      */
     private void showDialog() {
-        File file = getFile();
-
-        /*
-         * Select right directory for showing in file chooser.
-         */
-        if (file.isDirectory()) {
-            fileChooser.setSelectedFile(file);
-        } else if ((file.getParentFile() != null)
-                && (file.getParentFile().exists())) {
-            fileChooser.setSelectedFile(file.getParentFile());
+        if (!textField.getText().trim().isEmpty()) {
+            fileChooser.setSelectedFile(getFile());
         }
 
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             try {
+                File file;
                 file = fileChooser.getSelectedFile();
                 setFileName(file.getCanonicalPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Create component and set given file name.
-     * 
-     * @param fileName
-     */
-    public FileEdit(String fileName) {
-        this();
-        setFileName(fileName);
     }
 
     /**
@@ -233,12 +234,7 @@ public class FileEdit extends JPanel {
     @Override
     @Deprecated
     final public void setLayout(LayoutManager mgr) {
-        if (!(mgr instanceof BorderLayout)) {
-            throw new IllegalArgumentException(
-                    "Only BorderLayout available in file edit");
-        } else {
-            super.setLayout(mgr);
-        }
+        super.setLayout(new BorderLayout());
     }
 
     public void addFileSelectedListener(FileSelectedListener l) {
